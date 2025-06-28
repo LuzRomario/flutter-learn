@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:teste/questao.dart';
 import 'package:teste/resposta.dart';
+import 'package:teste/resultado.dart';
 
 main() =>  runApp(PerguntaApp());
 
@@ -54,14 +55,14 @@ class _PerguntaAppState extends State<PerguntaApp> {
           title: Center(child: Text("Minha Barra de Título")), // Título da barra azul
           backgroundColor: Colors.blue, // Opcional: Define a cor da barra (azul é o padrão)
         ),
-        body: temPerguntaSelecionada ? Column(
-          children: <Widget>[
-            Questao(_perguntas[_perguntaSelecionada]['texto'].toString()),
-            ...respostas.map((t) => Resposta(t, _responder))
-          ],
-        ) : Center(
-          child: Text("Fim das Perguntas"),
-        ),
+        body: temPerguntaSelecionada
+            ? Column(
+                children: <Widget>[
+                  Questao(_perguntas[_perguntaSelecionada]['texto'].toString()),
+                  ...respostas.map((t) => Resposta(t, _responder))
+                ],
+              )
+            : Resultado("Parabéns!!")
       ),
     );
   }
