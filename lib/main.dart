@@ -7,16 +7,8 @@ main() =>  runApp(PerguntaApp());
 class _PerguntaAppState extends State<PerguntaApp> {
   var _perguntaSelecionada = 0 ;
 
-  void _responder() {
-    setState(() {
-      _perguntaSelecionada++;      
-    });
-    print(_perguntaSelecionada);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final List<Map<String, Object>> perguntas = [
+  final _perguntas = const
+   [
       {
         'texto': "Qual é sua cor favorita?",
         'respostas': ['Vermelho','Azul','Laranja', 'Preto']
@@ -31,7 +23,24 @@ class _PerguntaAppState extends State<PerguntaApp> {
       }
     ];
 
-    List<String> respostas = perguntas[_perguntaSelecionada].cast()['respostas'];
+  void _responder() {
+    if(temPerguntaSelecionada){
+      setState(() {
+        _perguntaSelecionada++;      
+      });
+    }
+  }
+
+  bool get temPerguntaSelecionada {
+    return _perguntaSelecionada < _perguntas.length;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    
+
+    List<String> respostas = temPerguntaSelecionada ? _perguntas[_perguntaSelecionada].cast()['respostas']
+        : [];
    // List<Widget> widgets = respostas
    
 
@@ -45,13 +54,13 @@ class _PerguntaAppState extends State<PerguntaApp> {
           title: Center(child: Text("Minha Barra de Título")), // Título da barra azul
           backgroundColor: Colors.blue, // Opcional: Define a cor da barra (azul é o padrão)
         ),
-        body: Center( // Centraliza o conteúdo no corpo da tela
-          child: Column(
-            children: <Widget>[
-              Questao(perguntas[_perguntaSelecionada]['texto'].toString()),
-              ...respostas.map((t) => Resposta(t, _responder))
-            ],
-          ), // Seu texto centralizado
+        body: temPerguntaSelecionada ? Column(
+          children: <Widget>[
+            Questao(_perguntas[_perguntaSelecionada]['texto'].toString()),
+            ...respostas.map((t) => Resposta(t, _responder))
+          ],
+        ) : Center(
+          child: Text("Fim das Perguntas"),
         ),
       ),
     );
