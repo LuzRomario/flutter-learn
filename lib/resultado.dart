@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
 
-class Resultado extends StatelessWidget{ 
-  final String texto;
+class Resultado extends StatelessWidget {
+  const Resultado({super.key});
 
-  Resultado(this.texto);
-  
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text(texto,
-      style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-    )
+    return const Center(
+      child: Text('Parabéns!', style: TextStyle(fontSize: 28)),
     );
-
   }
 }
