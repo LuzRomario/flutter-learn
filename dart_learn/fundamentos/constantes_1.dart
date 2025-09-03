@@ -12,5 +12,5 @@ main() {
   // entradaDoUsuario = "";
 
   final area = PI * raio * raio;
-  print("O valor da área é: " + area.toString());
+  print("O valor da área é: $area");
 }
